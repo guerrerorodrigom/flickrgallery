@@ -4,4 +4,8 @@
     <dimen name="progress_border_size">6dp</dimen>
     <dimen name="photo_gallery_padding">16dp</dimen>
     <dimen name="photo_gallery_item_separation">8dp</dimen>
+    <dimen name="photo_details_text_padding">16dp</dimen>
+    <dimen name="card_radius">8dp</dimen>
+    <dimen name="card_elevation">12dp</dimen>
+    <dimen name="top_bar_padding">16dp</dimen>
 </resources>

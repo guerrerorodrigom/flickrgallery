@@ -21,7 +21,8 @@ import com.rodrigoguerrero.flickrgallery.presentation.model.Photo
 fun PhotoGallery(
     modifier: Modifier = Modifier,
     photos: LazyPagingItems<Photo>,
-    isLoadingMore: Boolean
+    isLoadingMore: Boolean,
+    onClick: (String, String) -> Unit
 ) {
     Column(
         modifier = modifier.fillMaxSize()
@@ -30,11 +31,15 @@ fun PhotoGallery(
             columns = StaggeredGridCells.Fixed(2),
             contentPadding = PaddingValues(dimensionResource(id = R.dimen.photo_gallery_padding)),
             verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.photo_gallery_item_separation)),
-            horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.photo_gallery_item_separation)),
+            horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.photo_gallery_item_separation))
         ) {
             items(photos.itemCount) { index ->
                 photos[index]?.let { photo ->
-                    PhotoCard(imageUrl = photo.url, title = photo.title)
+                    PhotoCard(
+                        imageUrl = photo.thumbnailUrl,
+                        title = photo.title,
+                        onClick = { onClick(photo.hiResUrl, photo.title) }
+                    )
                 }
             }
         }
