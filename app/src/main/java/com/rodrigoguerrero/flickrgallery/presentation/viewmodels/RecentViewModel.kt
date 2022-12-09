@@ -41,6 +41,6 @@ class RecentViewModel @Inject constructor(
     }
 
     fun resetPaginationLoading() {
-        _uiState.update { it.copy(paginationLoadingMoreItems = false) }
+        _uiState.update { it.copy(paginationLoadingMoreItems = false, isLoading = false) }
     }
 }

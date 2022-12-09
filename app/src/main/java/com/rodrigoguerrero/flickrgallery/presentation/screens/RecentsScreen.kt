@@ -1,9 +1,6 @@
 package com.rodrigoguerrero.flickrgallery.presentation.screens
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -15,7 +12,6 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.rodrigoguerrero.flickrgallery.presentation.components.FullScreenProgress
 import com.rodrigoguerrero.flickrgallery.presentation.components.MainBottomNavigation
 import com.rodrigoguerrero.flickrgallery.presentation.components.PhotoGallery
-import com.rodrigoguerrero.flickrgallery.presentation.model.mainDestinations
 import com.rodrigoguerrero.flickrgallery.presentation.viewmodels.RecentViewModel
 
 @Composable
@@ -40,11 +36,14 @@ fun RecentPhotosScreen(
     Scaffold(
         bottomBar = { MainBottomNavigation(currentRoute, navigate) }
     ) {
-        PhotoGallery(
-            photos = photos,
-            modifier = modifier.padding(it),
-            isLoadingMore = state.paginationLoadingMoreItems,
-            onClick = onPhotoClicked
-        )
+        when {
+            state.isLoading -> FullScreenProgress()
+            else -> PhotoGallery(
+                photos = photos,
+                modifier = modifier.padding(it),
+                isLoadingMore = state.paginationLoadingMoreItems,
+                onClick = onPhotoClicked
+            )
+        }
     }
 }
