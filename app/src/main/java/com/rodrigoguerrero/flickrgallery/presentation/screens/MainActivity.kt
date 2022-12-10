@@ -46,7 +46,15 @@ class MainActivity : ComponentActivity() {
                         Text(text = "favorites")
                     }
                     composable(SEARCH.route) {
-                        Text(text = "search")
+                        SearchScreen(
+                            currentRoute = navController.currentDestination?.route.orEmpty(),
+                            navigate = { navController.navigate(it) },
+                            onPhotoClicked = { url, title ->
+                                val encodedUrl =
+                                    URLEncoder.encode(url, StandardCharsets.UTF_8.toString())
+                                navController.navigate("${DETAILS.route}?url=$encodedUrl&title=$title")
+                            }
+                        )
                     }
                     composable(
                         route = "${DETAILS.route}${DETAILS.query}",

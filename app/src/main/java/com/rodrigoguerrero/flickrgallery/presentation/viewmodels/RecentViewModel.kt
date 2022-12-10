@@ -7,6 +7,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
+import com.rodrigoguerrero.flickrgallery.domain.sources.PAGE_SIZE
 import com.rodrigoguerrero.flickrgallery.domain.sources.RecentPhotosSource
 import com.rodrigoguerrero.flickrgallery.presentation.mappers.mapToUi
 import com.rodrigoguerrero.flickrgallery.presentation.model.Photo
@@ -30,7 +31,7 @@ class RecentViewModel @Inject constructor(
 
     val photos: Flow<PagingData<Photo>> = Pager(
         pagingSourceFactory = { recentPhotosSource },
-        config = PagingConfig(pageSize = 25)
+        config = PagingConfig(pageSize = PAGE_SIZE)
     )
     .flow
     .map { pagingData -> pagingData.map { dto -> dto.mapToUi() } }

@@ -10,4 +10,11 @@ interface PhotoService {
         @Query("per_page") perPage: Int = 25,
         @Query("page") page: Int
     ): PhotoResponseDto
+
+    @GET("services/rest?method=flickr.photos.search")
+    suspend fun search(
+        @Query("per_page") perPage: Int = 25,
+        @Query("page") page: Int,
+        @Query("text") text: String
+    ): PhotoResponseDto
 }
