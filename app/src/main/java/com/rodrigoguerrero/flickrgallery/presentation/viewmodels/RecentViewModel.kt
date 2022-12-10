@@ -19,7 +19,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 @HiltViewModel
 class RecentViewModel @Inject constructor(
@@ -33,15 +32,41 @@ class RecentViewModel @Inject constructor(
         pagingSourceFactory = { recentPhotosSource },
         config = PagingConfig(pageSize = PAGE_SIZE)
     )
-    .flow
-    .map { pagingData -> pagingData.map { dto -> dto.mapToUi() } }
-    .cachedIn(viewModelScope)
+        .flow
+        .map { pagingData -> pagingData.map { dto -> dto.mapToUi() } }
+        .cachedIn(viewModelScope)
 
     fun updatePaginationLoading() {
-        _uiState.update { it.copy(paginationLoadingMoreItems = true) }
+        _uiState.update {
+            it.copy(
+                paginationLoadingMoreItems = true,
+                isLoading = false,
+                isError = false
+            )
+        }
     }
 
     fun resetPaginationLoading() {
-        _uiState.update { it.copy(paginationLoadingMoreItems = false, isLoading = false) }
+        _uiState.update { it.copy(paginationLoadingMoreItems = false) }
+    }
+
+    fun updateIsLoading() {
+        _uiState.update {
+            it.copy(
+                isLoading = true,
+                paginationLoadingMoreItems = false,
+                isError = false
+            )
+        }
+    }
+
+    fun updateIsError() {
+        _uiState.update {
+            it.copy(
+                isLoading = false,
+                paginationLoadingMoreItems = false,
+                isError = true
+            )
+        }
     }
 }

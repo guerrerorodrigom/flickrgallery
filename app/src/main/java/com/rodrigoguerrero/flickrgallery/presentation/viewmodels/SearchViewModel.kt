@@ -12,7 +12,6 @@ import com.rodrigoguerrero.flickrgallery.domain.sources.PAGE_SIZE
 import com.rodrigoguerrero.flickrgallery.domain.sources.SearchPagingSource
 import com.rodrigoguerrero.flickrgallery.presentation.mappers.mapToUi
 import com.rodrigoguerrero.flickrgallery.presentation.model.Photo
-import com.rodrigoguerrero.flickrgallery.presentation.model.PhotoListUiState
 import com.rodrigoguerrero.flickrgallery.presentation.model.SearchUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -46,9 +45,9 @@ class SearchViewModel @Inject constructor(
                 pagingSourceFactory = { searchPagingSource.apply { setSearchQuery(query) } },
                 config = PagingConfig(pageSize = PAGE_SIZE)
             )
-            .flow
-            .map { pagingData -> pagingData.map { dto -> dto.mapToUi() } }
-            .cachedIn(viewModelScope)
+                .flow
+                .map { pagingData -> pagingData.map { dto -> dto.mapToUi() } }
+                .cachedIn(viewModelScope)
         }
 
     init {
@@ -61,6 +60,7 @@ class SearchViewModel @Inject constructor(
                 }
         }
     }
+
     fun search(query: String) {
         _uiState.update { it.copy(isLoading = true) }
         searchQuery.update { query }
@@ -72,10 +72,36 @@ class SearchViewModel @Inject constructor(
     }
 
     fun updatePaginationLoading() {
-        _uiState.update { it.copy(paginationLoadingMoreItems = true) }
+        _uiState.update {
+            it.copy(
+                paginationLoadingMoreItems = true,
+                isLoading = false,
+                isError = false
+            )
+        }
     }
 
     fun resetPaginationLoading() {
         _uiState.update { it.copy(paginationLoadingMoreItems = false, isLoading = false) }
+    }
+
+    fun updateIsLoading() {
+        _uiState.update {
+            it.copy(
+                isLoading = true,
+                paginationLoadingMoreItems = false,
+                isError = false
+            )
+        }
+    }
+
+    fun updateIsError() {
+        _uiState.update {
+            it.copy(
+                isLoading = false,
+                paginationLoadingMoreItems = false,
+                isError = true
+            )
+        }
     }
 }

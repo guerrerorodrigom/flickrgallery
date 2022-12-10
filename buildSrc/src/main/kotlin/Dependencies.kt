@@ -8,6 +8,7 @@ object Dependencies {
         const val hiltNavigation = "1.0.0"
         const val junit = "4.13.2"
         const val junitExt = "1.1.4"
+        const val lottie = "5.2.0"
         const val retrofit = "2.9.0"
     }
 
@@ -24,6 +25,10 @@ object Dependencies {
         const val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
         const val hiltNavigation = "androidx.hilt:hilt-navigation-compose:${Versions.hiltNavigation}"
         const val hiltKapt = "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
+    }
+
+    object Lottie {
+        const val lottie = "com.airbnb.android:lottie-compose:${Versions.lottie}"
     }
 
     object Retrofit {

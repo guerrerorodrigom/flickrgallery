@@ -76,6 +76,8 @@ dependencies {
     implementation(Android.Jetpack.roomKtx)
     kapt(Android.Jetpack.roomKapt)
 
+    implementation(Dependencies.Lottie.lottie)
+
     testImplementation(Dependencies.Testing.junit)
     androidTestImplementation(Dependencies.Testing.junitExt)
     androidTestImplementation(Dependencies.Testing.espressoCore)
