@@ -72,6 +72,10 @@ dependencies {
     implementation(Dependencies.Hilt.hiltNavigation)
     kapt(Dependencies.Hilt.hiltKapt)
 
+    implementation(Android.Jetpack.room)
+    implementation(Android.Jetpack.roomKtx)
+    kapt(Android.Jetpack.roomKapt)
+
     testImplementation(Dependencies.Testing.junit)
     androidTestImplementation(Dependencies.Testing.junitExt)
     androidTestImplementation(Dependencies.Testing.espressoCore)

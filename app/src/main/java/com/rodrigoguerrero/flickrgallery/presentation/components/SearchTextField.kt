@@ -15,7 +15,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -25,9 +33,14 @@ import com.rodrigoguerrero.flickrgallery.R
 fun SearchTextField(
     modifier: Modifier = Modifier,
     searchQuery: String,
+    searchSuggestions: List<String>,
     onValueChanged: (String) -> Unit,
     onSearch: (String) -> Unit
 ) {
+    val focusManager = LocalFocusManager.current
+    val focusRequester = FocusRequester()
+    var showSuggestions by remember { mutableStateOf(false) }
+
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -40,9 +53,15 @@ fun SearchTextField(
                 imeAction = ImeAction.Search
             ),
             keyboardActions = KeyboardActions(
-                onSearch = { onSearch(searchQuery) }
+                onSearch = {
+                    onSearch(searchQuery)
+                    focusManager.clearFocus()
+                }
             ),
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .focusRequester(focusRequester)
+                .onFocusChanged { showSuggestions = it.isFocused },
             colors = TextFieldDefaults.textFieldColors(backgroundColor = MaterialTheme.colors.background),
             leadingIcon = { Icon(imageVector = Icons.Default.Search, contentDescription = null) },
             placeholder = {
@@ -60,6 +79,13 @@ fun SearchTextField(
                     )
                 }
             }
+        )
+        SearchSuggestionsMenu(
+            searchSuggestions,
+            showSuggestions,
+            onValueChanged,
+            onSearch,
+            focusManager
         )
     }
 }

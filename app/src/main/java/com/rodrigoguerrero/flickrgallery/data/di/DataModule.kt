@@ -1,10 +1,17 @@
 package com.rodrigoguerrero.flickrgallery.data.di
 
+import android.content.Context
+import androidx.room.Room
 import com.rodrigoguerrero.flickrgallery.data.services.PhotoService
+import com.rodrigoguerrero.flickrgallery.data.storage.PhotoDataSource
+import com.rodrigoguerrero.flickrgallery.data.storage.PhotoDataSourceImpl
+import com.rodrigoguerrero.flickrgallery.data.storage.FlickrDatabase
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.concurrent.TimeUnit
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -39,4 +46,16 @@ class DataModule {
             }
             .build()
     }
+
+    @Provides
+    fun provideDatabase(@ApplicationContext context: Context): FlickrDatabase {
+        return Room.databaseBuilder(context, FlickrDatabase::class.java, "flickr_db").build()
+    }
+}
+
+@Module
+@InstallIn(ViewModelComponent::class)
+abstract class DataBindingModule {
+    @Binds
+    abstract fun bindDataSource(dataSource: PhotoDataSourceImpl): PhotoDataSource
 }

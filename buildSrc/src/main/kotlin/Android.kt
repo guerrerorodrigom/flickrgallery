@@ -5,6 +5,7 @@ object Android {
         const val composePaging = "1.0.0-alpha17"
         const val coreKtx = "1.7.0"
         const val lifecycleRuntime = "2.3.1"
+        const val room = "2.4.3"
     }
 
     const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"
@@ -18,5 +19,11 @@ object Android {
         const val paging = "androidx.paging:paging-compose:${Versions.composePaging}"
         const val uiTooling = "androidx.compose.ui:ui-tooling-preview:${Versions.compose}"
         const val ui = "androidx.compose.ui:ui:${Versions.compose}"
+    }
+
+    object Jetpack {
+        const val room = "androidx.room:room-runtime:${Versions.room}"
+        const val roomKapt = "androidx.room:room-compiler:${Versions.room}"
+        const val roomKtx = "androidx.room:room-ktx:${Versions.room}"
     }
 }

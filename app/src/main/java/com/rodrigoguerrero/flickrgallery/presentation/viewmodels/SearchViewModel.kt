@@ -7,6 +7,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
+import com.rodrigoguerrero.flickrgallery.domain.repositories.PhotoRepository
 import com.rodrigoguerrero.flickrgallery.domain.sources.PAGE_SIZE
 import com.rodrigoguerrero.flickrgallery.domain.sources.SearchPagingSource
 import com.rodrigoguerrero.flickrgallery.presentation.mappers.mapToUi
@@ -19,15 +20,18 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val searchPagingSource: SearchPagingSource
+    private val searchPagingSource: SearchPagingSource,
+    private val photoRepository: PhotoRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(SearchUiState())
@@ -47,9 +51,20 @@ class SearchViewModel @Inject constructor(
             .cachedIn(viewModelScope)
         }
 
+    init {
+        viewModelScope.launch {
+            photoRepository
+                .getRecentSearchTerms()
+                .map { list -> list.map { term -> term.searchTerm } }
+                .collectLatest { recentTerms ->
+                    _uiState.update { it.copy(recentSearchTerms = recentTerms) }
+                }
+        }
+    }
     fun search(query: String) {
         _uiState.update { it.copy(isLoading = true) }
         searchQuery.update { query }
+        viewModelScope.launch { photoRepository.saveSearchTerm(query) }
     }
 
     fun onSearchValueChanged(value: String) {

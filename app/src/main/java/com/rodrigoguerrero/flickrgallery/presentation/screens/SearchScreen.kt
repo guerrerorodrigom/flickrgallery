@@ -46,7 +46,8 @@ fun SearchScreen(
                 onSearch = { searchTerm ->
                     keyboardController?.hide()
                     viewModel.search(searchTerm)
-                }
+                },
+                searchSuggestions = state.recentSearchTerms
             )
         },
         bottomBar = { MainBottomNavigation(currentRoute, navigate) }
