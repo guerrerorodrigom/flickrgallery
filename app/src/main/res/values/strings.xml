@@ -8,4 +8,5 @@
     <string name="notification_channel_description">Notifies you whenever you are downloading a favorite image.</string>
     <string name="notification_description">We are downloading your favorite photo!</string>
     <string name="notification_title">Downloading</string>
+    <string name="no_title">No title</string>
 </resources>

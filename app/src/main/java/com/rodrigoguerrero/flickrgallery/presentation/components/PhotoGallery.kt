@@ -29,7 +29,8 @@ fun PhotoGallery(
             columns = StaggeredGridCells.Fixed(2),
             contentPadding = PaddingValues(dimensionResource(id = R.dimen.photo_gallery_padding)),
             verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.photo_gallery_item_separation)),
-            horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.photo_gallery_item_separation))
+            horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.photo_gallery_item_separation)),
+            modifier = Modifier.fillMaxSize()
         ) {
             content()
         }

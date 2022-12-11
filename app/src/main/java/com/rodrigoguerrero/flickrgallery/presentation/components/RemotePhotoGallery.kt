@@ -20,9 +20,9 @@ fun RemotePhotoGallery(
             items(photos.itemCount) { index ->
                 photos[index]?.let { photo ->
                     PhotoCard(
-                        imageUrl = photo.thumbnailUrl,
+                        imageUrl = photo.url,
                         title = photo.title,
-                        onClick = { onClick(photo.hiResUrl, photo.title, photo.id) }
+                        onClick = { onClick(photo.url, photo.title, photo.id) }
                     )
                 }
             }

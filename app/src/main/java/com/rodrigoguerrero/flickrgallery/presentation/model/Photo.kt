@@ -7,6 +7,5 @@ data class Photo(
     private val server: String
 ) {
     private val baseUrl = "https://live.staticflickr.com/"
-    val thumbnailUrl: String = "$baseUrl$server/${id}_${secret}_n.jpg"
-    val hiResUrl: String = "$baseUrl$server/${id}_${secret}_b.jpg"
+    val url: String = "$baseUrl$server/${id}_${secret}_b.jpg"
 }
