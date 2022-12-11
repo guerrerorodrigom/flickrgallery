@@ -21,6 +21,7 @@ import com.rodrigoguerrero.flickrgallery.R
 fun DetailsTopBar(
     modifier: Modifier = Modifier,
     isFavorite: Boolean,
+    isFavoritesEnabled: Boolean,
     onClose: () -> Unit,
     isFavoriteClicked: () -> Unit
 ) {
@@ -34,16 +35,19 @@ fun DetailsTopBar(
             contentDescription = null,
             modifier = Modifier.clickable { onClose() }
         )
-        Spacer(modifier = Modifier.weight(1f))
-        Icon(
-            imageVector = Icons.Outlined.Favorite,
-            contentDescription = null,
-            modifier = Modifier.clickable { isFavoriteClicked() },
-            tint = if (isFavorite) {
-                MaterialTheme.colors.primary
-            } else {
-                LocalContentColor.current.copy(alpha = LocalContentAlpha.current)
-            }
-        )
+
+        if (isFavoritesEnabled) {
+            Spacer(modifier = Modifier.weight(1f))
+            Icon(
+                imageVector = Icons.Outlined.Favorite,
+                contentDescription = null,
+                modifier = Modifier.clickable { isFavoriteClicked() },
+                tint = if (isFavorite) {
+                    MaterialTheme.colors.primary
+                } else {
+                    LocalContentColor.current.copy(alpha = LocalContentAlpha.current)
+                }
+            )
+        }
     }
 }

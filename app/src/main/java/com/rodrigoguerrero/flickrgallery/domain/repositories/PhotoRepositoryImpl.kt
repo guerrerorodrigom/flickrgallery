@@ -9,6 +9,7 @@ import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.rodrigoguerrero.flickrgallery.data.storage.datasources.PhotoDataSource
+import com.rodrigoguerrero.flickrgallery.data.storage.entities.Photo
 import com.rodrigoguerrero.flickrgallery.domain.workers.DownloadImageWorker
 import com.rodrigoguerrero.flickrgallery.domain.workers.PHOTO_ID
 import com.rodrigoguerrero.flickrgallery.domain.workers.PHOTO_NAME
@@ -20,6 +21,8 @@ class PhotoRepositoryImpl @Inject constructor(
     private val workManager: WorkManager,
     private val contentResolver: ContentResolver
 ) : PhotoRepository {
+
+    override suspend fun getFavorites() = photoDataSource.getFavorites()
 
     override suspend fun isFavorite(id: String): Boolean {
         return photoDataSource.getFavorite(id) != null

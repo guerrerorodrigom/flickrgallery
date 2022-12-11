@@ -15,7 +15,7 @@ interface PhotosDao {
     suspend fun addFavorite(photo: Photo)
 
     @Query("SELECT * FROM favorites")
-    fun getFavorites(): List<Photo>
+    fun getFavorites(): Flow<List<Photo>>
 
     @Query("SELECT * FROM favorites WHERE id=:id")
     fun getFavorite(id: String): Photo?

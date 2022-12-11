@@ -13,6 +13,7 @@ import com.rodrigoguerrero.flickrgallery.presentation.components.ErrorComponent
 import com.rodrigoguerrero.flickrgallery.presentation.components.FullScreenProgress
 import com.rodrigoguerrero.flickrgallery.presentation.components.MainBottomNavigation
 import com.rodrigoguerrero.flickrgallery.presentation.components.PhotoGallery
+import com.rodrigoguerrero.flickrgallery.presentation.components.RemotePhotoGallery
 import com.rodrigoguerrero.flickrgallery.presentation.viewmodels.RecentViewModel
 
 @Composable
@@ -43,7 +44,7 @@ fun RecentPhotosScreen(
         when {
             state.isLoading -> FullScreenProgress()
             state.isError -> ErrorComponent(modifier = Modifier.padding(it)) { photos.retry() }
-            else -> PhotoGallery(
+            else -> RemotePhotoGallery(
                 photos = photos,
                 modifier = modifier.padding(it),
                 isLoadingMore = state.paginationLoadingMoreItems,

@@ -16,6 +16,7 @@ import com.rodrigoguerrero.flickrgallery.presentation.components.FullScreenProgr
 import com.rodrigoguerrero.flickrgallery.presentation.components.MainBottomNavigation
 import com.rodrigoguerrero.flickrgallery.presentation.components.NotFound
 import com.rodrigoguerrero.flickrgallery.presentation.components.PhotoGallery
+import com.rodrigoguerrero.flickrgallery.presentation.components.RemotePhotoGallery
 import com.rodrigoguerrero.flickrgallery.presentation.components.SearchTextField
 import com.rodrigoguerrero.flickrgallery.presentation.viewmodels.SearchViewModel
 
@@ -63,7 +64,7 @@ fun SearchScreen(
             state.isLoading -> FullScreenProgress()
             state.isError -> ErrorComponent(modifier = Modifier.padding(it)) { photos.retry() }
             photos.itemCount == 0 && state.searchQuery.isNotEmpty() -> NotFound()
-            else -> PhotoGallery(
+            else -> RemotePhotoGallery(
                 photos = photos,
                 modifier = modifier.padding(it),
                 isLoadingMore = state.paginationLoadingMoreItems,

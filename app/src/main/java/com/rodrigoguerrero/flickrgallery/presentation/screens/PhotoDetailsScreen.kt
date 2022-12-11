@@ -24,6 +24,7 @@ fun PhotoDetailsScreen(
     modifier: Modifier = Modifier,
     viewModel: DetailsViewModel = hiltViewModel(),
     onClose: () -> Unit,
+    isFavoritesEnabled: Boolean,
     id: String,
     url: String,
     title: String
@@ -39,6 +40,7 @@ fun PhotoDetailsScreen(
             DetailsTopBar(
                 onClose = onClose,
                 isFavorite = state.isFavorite,
+                isFavoritesEnabled = isFavoritesEnabled,
                 isFavoriteClicked = {
                     if (state.isFavorite) {
                         viewModel.removeFromFavorites(id)

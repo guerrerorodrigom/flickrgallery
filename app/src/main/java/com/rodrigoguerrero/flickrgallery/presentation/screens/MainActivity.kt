@@ -4,8 +4,8 @@ import android.Manifest
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material.Text
 import androidx.compose.runtime.SideEffect
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -38,13 +38,12 @@ class MainActivity : ComponentActivity() {
                 )
             )
 
-            if (storagePermissionState.allPermissionsGranted) {
-
-            } else {
+            if (!storagePermissionState.allPermissionsGranted) {
                 SideEffect {
                     storagePermissionState.launchMultiplePermissionRequest()
                 }
             }
+
             FlickrGalleryTheme {
                 val navController = rememberNavController()
                 NavHost(
@@ -56,23 +55,25 @@ class MainActivity : ComponentActivity() {
                             currentRoute = navController.currentDestination?.route.orEmpty(),
                             navigate = { navController.navigate(it) },
                             onPhotoClicked = { url, title, id ->
-                                val encodedUrl =
-                                    URLEncoder.encode(url, StandardCharsets.UTF_8.toString())
-                                navController.navigate("${DETAILS.route}?url=$encodedUrl&title=$title&id=$id")
+                                onPhotoClicked(url, navController, title, id)
                             }
                         )
                     }
                     composable(FAVORITES.route) {
-                        Text(text = "favorites")
+                        FavoritesScreen(
+                            currentRoute = navController.currentDestination?.route.orEmpty(),
+                            navigate = { navController.navigate(it) },
+                            onPhotoClicked = { url, title, id ->
+                                onPhotoClicked(url, navController, title, id)
+                            }
+                        )
                     }
                     composable(SEARCH.route) {
                         SearchScreen(
                             currentRoute = navController.currentDestination?.route.orEmpty(),
                             navigate = { navController.navigate(it) },
                             onPhotoClicked = { url, title, id ->
-                                val encodedUrl =
-                                    URLEncoder.encode(url, StandardCharsets.UTF_8.toString())
-                                navController.navigate("${DETAILS.route}?url=$encodedUrl&title=$title&id=$id")
+                                onPhotoClicked(url, navController, title, id)
                             }
                         )
                     }
@@ -88,11 +89,23 @@ class MainActivity : ComponentActivity() {
                             url = entry.arguments?.getString(urlParam, "").orEmpty(),
                             title = entry.arguments?.getString(titleParam, "").orEmpty(),
                             id = entry.arguments?.getString(idParam, "").orEmpty(),
-                            onClose = { navController.popBackStack() }
+                            onClose = { navController.popBackStack() },
+                            isFavoritesEnabled = storagePermissionState.allPermissionsGranted
                         )
                     }
                 }
             }
         }
+    }
+
+    private fun onPhotoClicked(
+        url: String,
+        navController: NavHostController,
+        title: String,
+        id: String
+    ) {
+        val encodedUrl =
+            URLEncoder.encode(url, StandardCharsets.UTF_8.toString())
+        navController.navigate("${DETAILS.route}?url=$encodedUrl&title=$title&id=$id")
     }
 }

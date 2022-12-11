@@ -13,9 +13,7 @@ class PhotoDataSourceImpl @Inject constructor(
         database.photosDao().addFavorite(photo)
     }
 
-    override suspend fun getFavorites(): List<Photo> {
-        return database.photosDao().getFavorites()
-    }
+    override suspend fun getFavorites() = database.photosDao().getFavorites()
 
     override suspend fun removeFavorite(id: String) {
         database.photosDao().removeFavorite(id)
