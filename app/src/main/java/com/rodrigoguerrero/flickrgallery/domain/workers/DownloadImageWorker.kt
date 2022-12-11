@@ -14,7 +14,6 @@ import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.rodrigoguerrero.flickrgallery.R
-import com.rodrigoguerrero.flickrgallery.data.storage.FlickrDatabase
 import com.rodrigoguerrero.flickrgallery.data.storage.datasources.PhotoDataSource
 import com.rodrigoguerrero.flickrgallery.data.storage.entities.Photo
 import com.rodrigoguerrero.flickrgallery.domain.notifications.NotificationBuilder
@@ -59,7 +58,7 @@ class DownloadImageWorker @AssistedInject constructor(
         .withChannel(CHANNEL_NAME, context.getString(R.string.notification_channel_description))
         .withContentText(context.getString(R.string.notification_description))
         .withTitle(context.getString(R.string.notification_title))
-        .withSmallIcon(R.drawable.ic_launcher_foreground)
+        .withSmallIcon(R.drawable.icon_gallery)
         .withOngoing()
         .withProgress()
         .show()
@@ -123,7 +122,8 @@ class DownloadImageWorker @AssistedInject constructor(
                 put(MediaStore.MediaColumns.RELATIVE_PATH, "Download/Favorites")
             }
 
-            val uri = contentResolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, contentValues)
+            val uri =
+                contentResolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, contentValues)
 
             return if (uri != null) {
                 URL(url).openStream().use { input ->

@@ -93,13 +93,10 @@ class MainActivity : ComponentActivity() {
     @Composable
     private fun requestPermissions(): MultiplePermissionsState {
         val storagePermissionState = rememberMultiplePermissionsState(
-            permissions = mutableListOf(
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ).also {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    it.add(Manifest.permission.POST_NOTIFICATIONS)
-                }
+            permissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                listOf(Manifest.permission.POST_NOTIFICATIONS)
+            } else {
+                listOf(Manifest.permission.READ_EXTERNAL_STORAGE)
             }
         )
 
