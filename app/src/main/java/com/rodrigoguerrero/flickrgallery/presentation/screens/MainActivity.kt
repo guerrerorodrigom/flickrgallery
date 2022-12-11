@@ -1,9 +1,11 @@
 package com.rodrigoguerrero.flickrgallery.presentation.screens
 
 import android.Manifest
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -12,6 +14,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.MultiplePermissionsState
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.rodrigoguerrero.flickrgallery.presentation.navigation.Destinations.DETAILS
 import com.rodrigoguerrero.flickrgallery.presentation.navigation.Destinations.FAVORITES
@@ -31,18 +34,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val storagePermissionState = rememberMultiplePermissionsState(
-                permissions = listOf(
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                )
-            )
-
-            if (!storagePermissionState.allPermissionsGranted) {
-                SideEffect {
-                    storagePermissionState.launchMultiplePermissionRequest()
-                }
-            }
+            val storagePermissionState = requestPermissions()
 
             FlickrGalleryTheme {
                 val navController = rememberNavController()
@@ -96,6 +88,27 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    @Composable
+    private fun requestPermissions(): MultiplePermissionsState {
+        val storagePermissionState = rememberMultiplePermissionsState(
+            permissions = mutableListOf(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ).also {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    it.add(Manifest.permission.POST_NOTIFICATIONS)
+                }
+            }
+        )
+
+        if (!storagePermissionState.allPermissionsGranted) {
+            SideEffect {
+                storagePermissionState.launchMultiplePermissionRequest()
+            }
+        }
+        return storagePermissionState
     }
 
     private fun onPhotoClicked(
