@@ -1,9 +1,15 @@
 package com.rodrigoguerrero.flickrgallery.presentation.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Save
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,8 +24,9 @@ import com.rodrigoguerrero.flickrgallery.R
 @Composable
 fun PhotoDetails(
     modifier: Modifier = Modifier,
+    contentScale: ContentScale = ContentScale.None,
     imageUrl: String,
-    title: String
+    title: String,
 ) {
     Column(modifier = modifier) {
         AsyncImage(
@@ -28,7 +35,7 @@ fun PhotoDetails(
                 .crossfade(true)
                 .build(),
             contentDescription = title,
-            contentScale = ContentScale.Crop,
+            contentScale = contentScale,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
         Text(

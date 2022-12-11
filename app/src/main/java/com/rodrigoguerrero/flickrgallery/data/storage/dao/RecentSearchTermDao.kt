@@ -1,10 +1,10 @@
-package com.rodrigoguerrero.flickrgallery.data.storage
+package com.rodrigoguerrero.flickrgallery.data.storage.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
-import com.rodrigoguerrero.flickrgallery.data.models.entities.RecentSearchTerm
+import com.rodrigoguerrero.flickrgallery.data.storage.entities.RecentSearchTerm
 import kotlinx.coroutines.flow.Flow
 
 @Dao

@@ -2,23 +2,26 @@ package com.rodrigoguerrero.flickrgallery.data.di
 
 import android.content.Context
 import androidx.room.Room
-import com.rodrigoguerrero.flickrgallery.data.services.PhotoService
-import com.rodrigoguerrero.flickrgallery.data.storage.PhotoDataSource
-import com.rodrigoguerrero.flickrgallery.data.storage.PhotoDataSourceImpl
+import com.rodrigoguerrero.flickrgallery.data.network.services.PhotoService
+import com.rodrigoguerrero.flickrgallery.data.storage.datasources.SearchDataSource
+import com.rodrigoguerrero.flickrgallery.data.storage.datasources.SearchDataSourceImpl
 import com.rodrigoguerrero.flickrgallery.data.storage.FlickrDatabase
+import com.rodrigoguerrero.flickrgallery.data.storage.datasources.PhotoDataSource
+import com.rodrigoguerrero.flickrgallery.data.storage.datasources.PhotoDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import java.util.concurrent.TimeUnit
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@InstallIn(SingletonComponent::class)
 class DataModule {
     @Provides
     fun providePhotoService(okHttpClient: OkHttpClient): PhotoService {
@@ -54,8 +57,11 @@ class DataModule {
 }
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@InstallIn(SingletonComponent::class)
 abstract class DataBindingModule {
     @Binds
-    abstract fun bindDataSource(dataSource: PhotoDataSourceImpl): PhotoDataSource
+    abstract fun bindSearchDataSource(dataSource: SearchDataSourceImpl): SearchDataSource
+
+    @Binds
+    abstract fun bindPhotosDataSource(dataSource: PhotoDataSourceImpl): PhotoDataSource
 }

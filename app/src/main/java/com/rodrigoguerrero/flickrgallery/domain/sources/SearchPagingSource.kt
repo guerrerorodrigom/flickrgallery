@@ -1,7 +1,7 @@
 package com.rodrigoguerrero.flickrgallery.domain.sources
 
-import com.rodrigoguerrero.flickrgallery.data.models.PhotoResponseDto
-import com.rodrigoguerrero.flickrgallery.data.services.PhotoService
+import com.rodrigoguerrero.flickrgallery.data.network.dto.PhotoResponseDto
+import com.rodrigoguerrero.flickrgallery.data.network.services.PhotoService
 import javax.inject.Inject
 
 class SearchPagingSource @Inject constructor(

@@ -7,7 +7,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.rodrigoguerrero.flickrgallery.domain.repositories.PhotoRepository
+import com.rodrigoguerrero.flickrgallery.domain.repositories.SearchRepository
 import com.rodrigoguerrero.flickrgallery.domain.sources.PAGE_SIZE
 import com.rodrigoguerrero.flickrgallery.domain.sources.SearchPagingSource
 import com.rodrigoguerrero.flickrgallery.presentation.mappers.mapToUi
@@ -30,7 +30,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val searchPagingSource: SearchPagingSource,
-    private val photoRepository: PhotoRepository
+    private val searchRepository: SearchRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(SearchUiState())
@@ -52,7 +52,7 @@ class SearchViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            photoRepository
+            searchRepository
                 .getRecentSearchTerms()
                 .map { list -> list.map { term -> term.searchTerm } }
                 .collectLatest { recentTerms ->
@@ -64,7 +64,7 @@ class SearchViewModel @Inject constructor(
     fun search(query: String) {
         _uiState.update { it.copy(isLoading = true) }
         searchQuery.update { query }
-        viewModelScope.launch { photoRepository.saveSearchTerm(query) }
+        viewModelScope.launch { searchRepository.saveSearchTerm(query) }
     }
 
     fun onSearchValueChanged(value: String) {

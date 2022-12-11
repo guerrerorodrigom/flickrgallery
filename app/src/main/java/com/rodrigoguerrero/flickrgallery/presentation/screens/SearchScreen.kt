@@ -26,7 +26,7 @@ fun SearchScreen(
     viewModel: SearchViewModel = hiltViewModel(),
     currentRoute: String,
     navigate: (String) -> Unit,
-    onPhotoClicked: (String, String) -> Unit
+    onPhotoClicked: (String, String, String) -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val photos = viewModel.photos.collectAsLazyPagingItems()

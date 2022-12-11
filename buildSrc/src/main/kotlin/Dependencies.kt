@@ -1,11 +1,14 @@
 object Dependencies {
     object Versions {
+        const val accompanist = "0.28.0"
         const val coil = "2.2.2"
         const val espresso = "3.5.0"
         const val gradleAndroid = "7.3.1"
         const val gradleKotlinPlugin = "1.7.10"
         const val hilt = "2.44.2"
+        const val hiltCompiler = "1.0.0"
         const val hiltNavigation = "1.0.0"
+        const val hiltWork = "1.0.0"
         const val junit = "4.13.2"
         const val junitExt = "1.1.4"
         const val lottie = "5.2.0"
@@ -17,14 +20,19 @@ object Dependencies {
     const val kotlinGradle = "org.jetbrains.kotlin.android"
     const val hiltGradle = "com.google.dagger.hilt.android"
 
+    object Accompanist {
+        const val permissions = "com.google.accompanist:accompanist-permissions:${Versions.accompanist}"
+    }
     object Coil {
         const val coil = "io.coil-kt:coil-compose:${Versions.coil}"
     }
 
     object Hilt {
+        const val compiler = "androidx.hilt:hilt-compiler:${Versions.hiltCompiler}"
         const val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
-        const val hiltNavigation = "androidx.hilt:hilt-navigation-compose:${Versions.hiltNavigation}"
-        const val hiltKapt = "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
+        const val navigation = "androidx.hilt:hilt-navigation-compose:${Versions.hiltNavigation}"
+        const val kapt = "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
+        const val work = "androidx.hilt:hilt-work:${Versions.hiltWork}"
     }
 
     object Lottie {
@@ -33,7 +41,7 @@ object Dependencies {
 
     object Retrofit {
         const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
-        const val retrofitGson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
+        const val gson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
     }
 
     object Testing {

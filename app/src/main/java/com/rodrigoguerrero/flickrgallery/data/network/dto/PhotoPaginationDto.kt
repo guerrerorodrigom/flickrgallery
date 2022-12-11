@@ -1,4 +1,4 @@
-package com.rodrigoguerrero.flickrgallery.data.models
+package com.rodrigoguerrero.flickrgallery.data.network.dto
 
 import com.google.gson.annotations.SerializedName
 

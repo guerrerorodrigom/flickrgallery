@@ -6,8 +6,8 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.unit.dp
 import com.rodrigoguerrero.flickrgallery.R
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -24,6 +24,11 @@ fun PhotoCard(
         backgroundColor = MaterialTheme.colors.surface,
         onClick = onClick
     ) {
-        PhotoDetails(modifier, imageUrl, title)
+        PhotoDetails(
+            modifier = modifier,
+            imageUrl = imageUrl,
+            title = title,
+            contentScale = ContentScale.Crop
+        )
     }
 }

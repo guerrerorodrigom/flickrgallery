@@ -1,4 +1,4 @@
-package com.rodrigoguerrero.flickrgallery.data.models.entities
+package com.rodrigoguerrero.flickrgallery.data.storage.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

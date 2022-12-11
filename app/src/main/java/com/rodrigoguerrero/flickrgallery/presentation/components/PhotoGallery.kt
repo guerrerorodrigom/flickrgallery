@@ -22,7 +22,7 @@ fun PhotoGallery(
     modifier: Modifier = Modifier,
     photos: LazyPagingItems<Photo>,
     isLoadingMore: Boolean,
-    onClick: (String, String) -> Unit
+    onClick: (String, String, String) -> Unit
 ) {
     Column(
         modifier = modifier.fillMaxSize()
@@ -38,7 +38,7 @@ fun PhotoGallery(
                     PhotoCard(
                         imageUrl = photo.thumbnailUrl,
                         title = photo.title,
-                        onClick = { onClick(photo.hiResUrl, photo.title) }
+                        onClick = { onClick(photo.hiResUrl, photo.title, photo.id) }
                     )
                 }
             }

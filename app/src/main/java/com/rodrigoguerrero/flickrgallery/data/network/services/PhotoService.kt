@@ -1,6 +1,6 @@
-package com.rodrigoguerrero.flickrgallery.data.services
+package com.rodrigoguerrero.flickrgallery.data.network.services
 
-import com.rodrigoguerrero.flickrgallery.data.models.PhotoResponseDto
+import com.rodrigoguerrero.flickrgallery.data.network.dto.PhotoResponseDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 

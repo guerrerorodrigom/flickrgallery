@@ -10,4 +10,5 @@
     <dimen name="top_bar_padding">16dp</dimen>
     <dimen name="animation_height">200dp</dimen>
     <dimen name="animation_padding">16dp</dimen>
+    <dimen name="save_icon_padding">8dp</dimen>
 </resources>

@@ -2,11 +2,8 @@ package com.rodrigoguerrero.flickrgallery.domain.sources
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.rodrigoguerrero.flickrgallery.data.models.PhotoDto
-import com.rodrigoguerrero.flickrgallery.data.models.PhotoPaginationDto
-import com.rodrigoguerrero.flickrgallery.data.models.PhotoResponseDto
-import com.rodrigoguerrero.flickrgallery.data.services.PhotoService
-import javax.inject.Inject
+import com.rodrigoguerrero.flickrgallery.data.network.dto.PhotoDto
+import com.rodrigoguerrero.flickrgallery.data.network.dto.PhotoResponseDto
 
 const val PAGE_SIZE = 25
 

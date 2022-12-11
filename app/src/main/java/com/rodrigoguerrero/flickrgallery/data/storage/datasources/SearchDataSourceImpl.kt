@@ -1,12 +1,13 @@
-package com.rodrigoguerrero.flickrgallery.data.storage
+package com.rodrigoguerrero.flickrgallery.data.storage.datasources
 
-import com.rodrigoguerrero.flickrgallery.data.models.entities.RecentSearchTerm
+import com.rodrigoguerrero.flickrgallery.data.storage.FlickrDatabase
+import com.rodrigoguerrero.flickrgallery.data.storage.entities.RecentSearchTerm
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
-class PhotoDataSourceImpl @Inject constructor(
+class SearchDataSourceImpl @Inject constructor(
     private val database: FlickrDatabase
-) : PhotoDataSource {
+) : SearchDataSource {
     override suspend fun addSearchTerm(searchTerm: String) {
         database.recentSearchTermsDao().insertSearchTerm(RecentSearchTerm(searchTerm = searchTerm))
     }

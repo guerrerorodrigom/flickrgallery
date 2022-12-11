@@ -21,7 +21,7 @@ fun RecentPhotosScreen(
     viewModel: RecentViewModel = hiltViewModel(),
     currentRoute: String,
     navigate: (String) -> Unit,
-    onPhotoClicked: (String, String) -> Unit
+    onPhotoClicked: (String, String, String) -> Unit
 ) {
     val photos = viewModel.photos.collectAsLazyPagingItems()
     val state by viewModel.uiState.collectAsState()

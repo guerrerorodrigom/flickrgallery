@@ -62,21 +62,28 @@ dependencies {
     implementation(Android.Compose.foundation)
     implementation(Android.Compose.navigation)
     implementation(Android.Compose.paging)
+    implementation(Android.Compose.materialIconsExtended)
 
     implementation(Dependencies.Retrofit.retrofit)
-    implementation(Dependencies.Retrofit.retrofitGson)
+    implementation(Dependencies.Retrofit.gson)
 
     implementation(Dependencies.Coil.coil)
 
     implementation(Dependencies.Hilt.hilt)
-    implementation(Dependencies.Hilt.hiltNavigation)
-    kapt(Dependencies.Hilt.hiltKapt)
+    implementation(Dependencies.Hilt.navigation)
+    implementation(Dependencies.Hilt.work)
+    kapt(Dependencies.Hilt.kapt)
+    kapt(Dependencies.Hilt.compiler)
 
     implementation(Android.Jetpack.room)
     implementation(Android.Jetpack.roomKtx)
     kapt(Android.Jetpack.roomKapt)
 
     implementation(Dependencies.Lottie.lottie)
+
+    implementation(Android.Jetpack.workKtx)
+
+    implementation(Dependencies.Accompanist.permissions)
 
     testImplementation(Dependencies.Testing.junit)
     androidTestImplementation(Dependencies.Testing.junitExt)
