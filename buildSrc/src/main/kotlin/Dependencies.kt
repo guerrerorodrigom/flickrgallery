@@ -2,6 +2,8 @@ object Dependencies {
     object Versions {
         const val accompanist = "0.28.0"
         const val coil = "2.2.2"
+        const val coroutinesTest = "1.6.4"
+        const val coreTesting = "2.1.0"
         const val espresso = "3.5.0"
         const val gradleAndroid = "7.3.1"
         const val gradleKotlinPlugin = "1.7.10"
@@ -12,7 +14,10 @@ object Dependencies {
         const val junit = "4.13.2"
         const val junitExt = "1.1.4"
         const val lottie = "5.2.0"
+        const val mockk = "1.13.3"
         const val retrofit = "2.9.0"
+        const val strikt = "0.34.1"
+        const val turbine = "0.12.1"
     }
 
     const val androidAppGradle = "com.android.application"
@@ -45,11 +50,16 @@ object Dependencies {
     }
 
     object Testing {
-        const val  junit = "junit:junit:${Versions.junit}"
-        const val  junitExt = "androidx.test.ext:junit:${Versions.junitExt}"
-        const val  espressoCore = "androidx.test.espresso:espresso-core:${Versions.espresso}"
-        const val  composeJunit = "androidx.compose.ui:ui-test-junit4:${Android.Versions.compose}"
-        const val  composeUiTooling = "androidx.compose.ui:ui-tooling:${Android.Versions.compose}"
-        const val  composeUiManifest = "androidx.compose.ui:ui-test-manifest:${Android.Versions.compose}"
+        const val composeJunit = "androidx.compose.ui:ui-test-junit4:${Android.Versions.compose}"
+        const val composeUiTooling = "androidx.compose.ui:ui-tooling:${Android.Versions.compose}"
+        const val composeUiManifest = "androidx.compose.ui:ui-test-manifest:${Android.Versions.compose}"
+        const val coreTesting = "androidx.arch.core:core-testing:${Versions.coreTesting}"
+        const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutinesTest}"
+        const val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espresso}"
+        const val junit = "junit:junit:${Versions.junit}"
+        const val junitExt = "androidx.test.ext:junit:${Versions.junitExt}"
+        const val mockk = "io.mockk:mockk:${Versions.mockk}"
+        const val strikt = "io.strikt:strikt-core:${Versions.strikt}"
+        const val turbine = "app.cash.turbine:turbine:${Versions.turbine}"
     }
 }

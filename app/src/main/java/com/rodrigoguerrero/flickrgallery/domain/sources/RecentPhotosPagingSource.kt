@@ -4,7 +4,7 @@ import com.rodrigoguerrero.flickrgallery.data.network.dto.PhotoResponseDto
 import com.rodrigoguerrero.flickrgallery.data.network.services.PhotoService
 import javax.inject.Inject
 
-class RecentPhotosSource @Inject constructor(
+class RecentPhotosPagingSource @Inject constructor(
     private val service: PhotoService
 ) : BasePhotoListSource() {
 

@@ -45,9 +45,9 @@ class SearchViewModel @Inject constructor(
                 pagingSourceFactory = { searchPagingSource.apply { setSearchQuery(query) } },
                 config = PagingConfig(pageSize = PAGE_SIZE)
             )
-                .flow
-                .map { pagingData -> pagingData.map { dto -> dto.mapToUi() } }
-                .cachedIn(viewModelScope)
+            .flow
+            .map { pagingData -> pagingData.map { dto -> dto.mapToUi() } }
+            .cachedIn(viewModelScope)
         }
 
     init {

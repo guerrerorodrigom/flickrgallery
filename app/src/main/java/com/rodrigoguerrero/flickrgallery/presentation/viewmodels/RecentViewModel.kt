@@ -8,7 +8,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
 import com.rodrigoguerrero.flickrgallery.domain.sources.PAGE_SIZE
-import com.rodrigoguerrero.flickrgallery.domain.sources.RecentPhotosSource
+import com.rodrigoguerrero.flickrgallery.domain.sources.RecentPhotosPagingSource
 import com.rodrigoguerrero.flickrgallery.presentation.mappers.mapToUi
 import com.rodrigoguerrero.flickrgallery.presentation.model.Photo
 import com.rodrigoguerrero.flickrgallery.presentation.model.PhotoListUiState
@@ -22,19 +22,19 @@ import kotlinx.coroutines.flow.update
 
 @HiltViewModel
 class RecentViewModel @Inject constructor(
-    private val recentPhotosSource: RecentPhotosSource
+    private val recentPhotosPagingSource: RecentPhotosPagingSource
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(PhotoListUiState())
     val uiState: StateFlow<PhotoListUiState> = _uiState
 
     val photos: Flow<PagingData<Photo>> = Pager(
-        pagingSourceFactory = { recentPhotosSource },
+        pagingSourceFactory = { recentPhotosPagingSource },
         config = PagingConfig(pageSize = PAGE_SIZE)
     )
-        .flow
-        .map { pagingData -> pagingData.map { dto -> dto.mapToUi() } }
-        .cachedIn(viewModelScope)
+    .flow
+    .map { pagingData -> pagingData.map { dto -> dto.mapToUi() } }
+    .cachedIn(viewModelScope)
 
     fun updatePaginationLoading() {
         _uiState.update {
